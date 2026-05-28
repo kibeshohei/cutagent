@@ -2,6 +2,8 @@
 
 このドキュメントは、グローバル `~/.claude/CLAUDE.md` の上に、CUTAGENT 固有の方針を追加するもの。
 
+> **セッション開始時は必ず [PLAN.md](PLAN.md) を読んで現在の状態と次のタスクを把握すること。**
+
 ## プロダクト概要
 
 期限付きダイエット目標を支援する PWA。Google Cloud DevOps AI Agent Hackathon 2026 出展用途。詳細は [docs/requirements.md](docs/requirements.md) を参照。
