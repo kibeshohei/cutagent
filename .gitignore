@@ -26,5 +26,14 @@ build/
 logs/
 *.log
 
-# Supabase
-.supabase/
+# Nix / direnv
+.direnv/
+result
+result-*
+
+# Go
+api/tmp/
+
+# Firebase
+.firebase/
+firebase-debug.log
