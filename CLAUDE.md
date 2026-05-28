@@ -2,7 +2,7 @@
 
 このドキュメントは、グローバル `~/.claude/CLAUDE.md` の上に、CUTAGENT 固有の方針を追加するもの。
 
-> **セッション開始時は必ず [PLAN.md](PLAN.md) を読んで現在の状態と次のタスクを把握すること。**
+> **セッション開始時は必ず [PLAN.md](PLAN.md) を読んで現在の状態と次のタスクを把握すること。** 読み書きの手順は `plan` Skill ([.claude/skills/plan/SKILL.md](.claude/skills/plan/SKILL.md)) を参照。
 
 ## プロダクト概要
 
