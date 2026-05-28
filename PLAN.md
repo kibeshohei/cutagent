@@ -20,6 +20,7 @@
 | `prompts/` | **未着手** |
 | `evals/` | **未着手** |
 | `.github/workflows/ci.yml` | Go の CI あり（build / test / lint） |
+| `.claude/skills/plan/` | PLAN.md の運用手順を定義する plan Skill |
 
 ### `api/` の中身
 
@@ -82,3 +83,4 @@ OpenAPI から TS 型を生成する仕組みも含む。
 - [x] Go バックエンド骨格（Huma + `/api/health`）
 - [x] api/Dockerfile
 - [x] GitHub Actions CI（Go build / test / lint）
+- [x] PLAN.md（セッション引き継ぎメモ）と plan Skill（その運用手順）
