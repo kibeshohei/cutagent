@@ -33,6 +33,7 @@ result-*
 
 # Go
 api/tmp/
+api/server
 
 # Firebase
 .firebase/
