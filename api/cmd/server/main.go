@@ -12,6 +12,7 @@ import (
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humago"
 	"github.com/kibeshohei/cutagent/api/internal/handler"
+	"github.com/kibeshohei/cutagent/api/internal/repository"
 )
 
 func main() {
@@ -24,7 +25,8 @@ func main() {
 	config := huma.DefaultConfig("CUTAGENT API", "0.1.0")
 	api := humago.New(mux, config)
 
-	handler.RegisterHealth(api)
+	store := repository.NewStore()
+	handler.RegisterAll(api, store)
 
 	srv := &http.Server{
 		Addr:         ":" + port,
