@@ -45,7 +45,8 @@
 - Go は **1.24**（Huma v2.38 は Go 1.25 必須のため v2.31 を使用）
 - フロントは **React + Vite + Tailwind**、パッケージマネージャは **pnpm**
 - OpenAPI は Huma が自動生成 → TS 型はそこから生成予定（現状は手書き）
-- DB は **Firestore**、AI は **Gemini API**、ホストは **Cloud Run**
+- DB は **Firestore**、AI は **Gemini API**、バックエンドは **Cloud Run**
+- フロント（React SPA）の配信は **Firebase Hosting**（GCP 系で統一、CDN 付き、無料枠あり）
 - Cloud Run デプロイは Workload Identity Federation を使用（サービスアカウントキーを使わない）
 
 ---

@@ -1,7 +1,7 @@
 # 要件定義書 — CUTAGENT
 
 > バージョン: 0.6.0（下書き）
-> 更新日: 2026-05-28
+> 更新日: 2026-05-29
 > ステータス: レビュー中
 > 主用途: Google Cloud DevOps AI Agent Hackathon 2026 出展
 
@@ -41,6 +41,7 @@
 - **Firestore**: DB
 - **Secret Manager**: API キー管理
 - **GitHub Actions**: CI/CD + Evals ゲート
+- **Firebase Hosting**: React SPA の静的ファイル配信（CDN 付き）
 
 ### 2.3 審査基準との対応
 | 審査基準 | 本プロダクトでどう満たすか |
