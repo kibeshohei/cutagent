@@ -89,3 +89,4 @@ Huma が出力する `/openapi.json` から `openapi-typescript` 等で型を生
 - [x] GitHub Actions CI に web ジョブ追加
 - [x] Cloud Run デプロイワークフロー（deploy.yml）
 - [x] `claude/repository-next-steps-WJga1` を PR #2 として main にマージ（`f054151`）
+- [x] ハーネス拡充ドキュメント一式（`docs/architecture.md` / `docs/adr/` (README + template + 0001〜0005) / `prompts/README.md` / `evals/README.md` / `docs/gcp-setup.md`）— `docs/expand-harness-docs` ブランチで PR 待ち
