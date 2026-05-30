@@ -5,10 +5,10 @@
 
 ---
 
-## 現在の状態（2026-05-29 時点）
+## 現在の状態（2026-05-30 時点）
 
-**ブランチ:** `claude/repository-next-steps-WJga1`
-（`main` への変更は必ず PR 経由。直 push 禁止）
+**ブランチ:** `main`
+（新規作業時は `<type>/<kebab-case>` の feature ブランチを切る。`main` 直 push 禁止、PR 経由のみ）
 
 ### 何がある？
 
@@ -53,26 +53,23 @@
 
 ## 次にやること（優先順）
 
-### 🔲 1. この PR を main にマージ
-`claude/repository-next-steps-WJga1` の PR を作って CI が通るか確認してからマージ。
-
-### 🔲 2. Firestore 連携
+### 🔲 1. Firestore 連携
 `api/internal/repository/memory.go` を Firestore 実装に差し替える。
 ローカル開発は Firestore Emulator を使う（`flake.nix` に追加必要）。
 
-### 🔲 3. Gemini API 連携
+### 🔲 2. Gemini API 連携
 `api/internal/handler/ai.go` のスタブを実際の Gemini 呼び出しに差し替える。
 `google.golang.org/genai` を使用。API キーは Secret Manager 経由で注入（`GEMINI_API_KEY` 環境変数）。
 プロンプトは `prompts/recommend-meal.md` / `prompts/recommend-workout.md` を参照。
 
-### 🔲 4. GCP セットアップ
+### 🔲 3. GCP セットアップ
 Cloud Run サービス / Artifact Registry / Workload Identity Federation の初期設定。
 `deploy.yml` が使う Secrets（`GCP_PROJECT_ID`, `WIF_PROVIDER`, `WIF_SERVICE_ACCOUNT`）を GitHub に登録。
 
-### 🔲 5. OpenAPI → TS 型自動生成
+### 🔲 4. OpenAPI → TS 型自動生成
 Huma が出力する `/openapi.json` から `openapi-typescript` 等で型を生成し `web/src/api.ts` の手書き型を置き換える。
 
-### 🔲 6. Evals CI ゲート
+### 🔲 5. Evals CI ゲート
 `evals/` の JSONL ケースを実行して LLM-as-a-Judge でスコアリングする GitHub Actions を追加。スコア低下時は CI fail。
 
 ---
@@ -91,3 +88,4 @@ Huma が出力する `/openapi.json` から `openapi-typescript` 等で型を生
 - [x] prompts/ と evals/ の初版
 - [x] GitHub Actions CI に web ジョブ追加
 - [x] Cloud Run デプロイワークフロー（deploy.yml）
+- [x] `claude/repository-next-steps-WJga1` を PR #2 として main にマージ（`f054151`）
