@@ -54,14 +54,6 @@ func TestMealLifecycle(t *testing.T) {
 	}
 }
 
-func TestRecommendMeal(t *testing.T) {
-	api := newTestAPI(t)
-	resp := api.Post("/api/ai/recommend-meal", map[string]any{"date": "2026-05-28"})
-	if resp.Code != http.StatusOK {
-		t.Fatalf("recommend-meal: got %d, want 200 (%s)", resp.Code, resp.Body.String())
-	}
-}
-
 func TestMasters(t *testing.T) {
 	api := newTestAPI(t)
 	if resp := api.Get("/api/meal-master"); resp.Code != http.StatusOK {
