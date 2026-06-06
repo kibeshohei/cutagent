@@ -44,6 +44,25 @@ nix develop
 
 > 初回起動はパッケージのフェッチで数十分かかる場合あり。
 
+## 開発時の起動
+
+`mprocs` を実行すると、API と web を同時起動し、ログを別ペインで表示する。
+
+```sh
+mprocs
+```
+
+| プロセス | URL |
+|---|---|
+| api (Go) | http://localhost:8080 |
+| web (Vite) | http://localhost:5173 |
+
+ブラウザは [http://localhost:5173](http://localhost:5173) を開く (Vite の proxy で `/api/*` → `localhost:8080` に転送される)。
+
+操作: `Ctrl+a r` で個別プロセス再起動、`Ctrl+a q` で全プロセス終了。
+
+`GEMINI_API_KEY` を渡したい場合は `.env` に書いて `.envrc` に `dotenv` を追記するか、起動前に `export GEMINI_API_KEY=...` する。詳細は [`.env.example`](.env.example) を参照。
+
 ## ディレクトリ構成
 
 ```

@@ -1,0 +1,6 @@
+procs:
+  api:
+    shell: "go run ./api/cmd/server"
+  web:
+    shell: "pnpm dev"
+    cwd: web
