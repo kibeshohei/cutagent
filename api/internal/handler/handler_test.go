@@ -1,6 +1,7 @@
 package handler_test
 
 import (
+	"encoding/json"
 	"net/http"
 	"testing"
 
@@ -61,5 +62,26 @@ func TestMasters(t *testing.T) {
 	}
 	if resp := api.Get("/api/workout-master"); resp.Code != http.StatusOK {
 		t.Fatalf("workout-master: got %d, want 200", resp.Code)
+	}
+}
+
+// 体重が 1 件もない状態で /api/weight が JSON null ではなく [] を返すこと。
+// null だとフロント側で `logs.at(-1)` が TypeError になり Weight ページが真っ白になる。
+func TestWeightListEmptyReturnsArray(t *testing.T) {
+	api := newTestAPI(t)
+	resp := api.Get("/api/weight")
+	if resp.Code != http.StatusOK {
+		t.Fatalf("got %d, want 200", resp.Code)
+	}
+	body := resp.Body.Bytes()
+	var logs []map[string]any
+	if err := json.Unmarshal(body, &logs); err != nil {
+		t.Fatalf("unmarshal: %v body=%q", err, body)
+	}
+	if logs == nil {
+		t.Fatalf("must be [] not null, got body=%q", body)
+	}
+	if len(logs) != 0 {
+		t.Fatalf("must be empty, got %d items", len(logs))
 	}
 }
