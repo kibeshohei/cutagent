@@ -5,7 +5,7 @@
 
 ---
 
-## 現在の状態（2026-05-30 時点）
+## 現在の状態（2026-06-06 時点）
 
 **ブランチ:** `main`
 （新規作業時は `<type>/<kebab-case>` の feature ブランチを切る。`main` 直 push 禁止、PR 経由のみ）
@@ -28,9 +28,10 @@
 - **Huma v2.31** + `net/http` でサーバー起動
 - エンドポイント: `/api/health`, `/api/weight`, `/api/meals`, `/api/workouts`, `/api/meal-master`, `/api/workout-master`, `/api/summary`, `/api/goal`, `/api/ai/recommend-meal`, `/api/ai/recommend-workout`
 - データ永続化は**インメモリ**（`api/internal/repository/memory.go`）
-- AI レコメンドは**スタブ実装**（固定のダミーデータを返す）
+- AI レコメンドは **Gemini 2.5 Flash 呼び出し**（`google.golang.org/genai`）。`GEMINI_API_KEY` 未設定や API エラー / プロンプト読み込み失敗 / JSON パース失敗時はスタブ候補にフォールバック
+- プロンプトは `PROMPTS_DIR` 環境変数で指定（デフォルト `prompts`、Dockerfile では `/app/prompts`）
 - `PORT` 環境変数で待受ポートを変更可能（Cloud Run 対応）
-- `api/Dockerfile` で distroless イメージにビルド
+- `api/Dockerfile` で distroless イメージにビルド。context はリポルート（`docker build -f api/Dockerfile .`）で、`prompts/` も内包
 - `go 1.24.0` / module: `github.com/kibeshohei/cutagent/api`
 
 ### `web/` の中身
@@ -57,19 +58,15 @@
 `api/internal/repository/memory.go` を Firestore 実装に差し替える。
 ローカル開発は Firestore Emulator を使う（`flake.nix` に追加必要）。
 
-### 🔲 2. Gemini API 連携
-`api/internal/handler/ai.go` のスタブを実際の Gemini 呼び出しに差し替える。
-`google.golang.org/genai` を使用。API キーは Secret Manager 経由で注入（`GEMINI_API_KEY` 環境変数）。
-プロンプトは `prompts/recommend-meal.md` / `prompts/recommend-workout.md` を参照。
-
-### 🔲 3. GCP セットアップ
+### 🔲 2. GCP セットアップ
 Cloud Run サービス / Artifact Registry / Workload Identity Federation の初期設定。
 `deploy.yml` が使う Secrets（`GCP_PROJECT_ID`, `WIF_PROVIDER`, `WIF_SERVICE_ACCOUNT`）を GitHub に登録。
+Gemini API キーは Secret Manager の `gemini-api-key` に登録し、`deploy.yml` が `--set-secrets` で注入する設計（[docs/gcp-setup.md](docs/gcp-setup.md) 参照）。
 
-### 🔲 4. OpenAPI → TS 型自動生成
+### 🔲 3. OpenAPI → TS 型自動生成
 Huma が出力する `/openapi.json` から `openapi-typescript` 等で型を生成し `web/src/api.ts` の手書き型を置き換える。
 
-### 🔲 5. Evals CI ゲート
+### 🔲 4. Evals CI ゲート
 `evals/` の JSONL ケースを実行して LLM-as-a-Judge でスコアリングする GitHub Actions を追加。スコア低下時は CI fail。
 
 ---
@@ -89,4 +86,7 @@ Huma が出力する `/openapi.json` から `openapi-typescript` 等で型を生
 - [x] GitHub Actions CI に web ジョブ追加
 - [x] Cloud Run デプロイワークフロー（deploy.yml）
 - [x] `claude/repository-next-steps-WJga1` を PR #2 として main にマージ（`f054151`）
-- [x] ハーネス拡充ドキュメント一式（`docs/architecture.md` / `docs/adr/` (README + template + 0001〜0005) / `prompts/README.md` / `evals/README.md` / `docs/gcp-setup.md`）— `docs/expand-harness-docs` ブランチで PR 待ち
+- [x] ハーネス拡充ドキュメント一式（`docs/architecture.md` / `docs/adr/` (README + template + 0001〜0005) / `prompts/README.md` / `evals/README.md` / `docs/gcp-setup.md`）— PR #4 マージ（`2fc2a0c`）
+- [x] AI レコメンドを Gemini 2.5 Flash 実装に差し替え（`google.golang.org/genai`、スタブフォールバック付き、`PROMPTS_DIR` env、Dockerfile context をリポルートに変更）— PR #5 マージ（`f01ed81`）
+- [x] 開発時起動の手動 2 ターミナル方式を README に整備（mprocs を一度試して撤回、PR #6 / #7 / #8）
+- [x] 体重ページが空状態で真っ白になるバグを修正（`ListWeights` が nil 起点で JSON `null` になっていたのを `[]` 起点に統一、回帰テスト追加）— PR #9 マージ（`3a7f9d2`）
