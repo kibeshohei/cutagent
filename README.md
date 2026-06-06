@@ -59,9 +59,17 @@ go run ./cmd/server
 
 ### Web (React + Vite)
 
+初回のみ依存をインストール:
+
 ```sh
 cd web
-pnpm install   # 初回のみ
+pnpm install
+```
+
+以降は dev 起動のみ:
+
+```sh
+cd web
 pnpm dev
 ```
 
