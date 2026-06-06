@@ -28,9 +28,6 @@
 
             # Google Cloud
             google-cloud-sdk
-
-            # Dev process manager
-            mprocs
           ];
 
           shellHook = ''
