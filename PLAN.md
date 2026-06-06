@@ -90,3 +90,4 @@ Huma が出力する `/openapi.json` から `openapi-typescript` 等で型を生
 - [x] AI レコメンドを Gemini 2.5 Flash 実装に差し替え（`google.golang.org/genai`、スタブフォールバック付き、`PROMPTS_DIR` env、Dockerfile context をリポルートに変更）— PR #5 マージ（`f01ed81`）
 - [x] 開発時起動の手動 2 ターミナル方式を README に整備（mprocs を一度試して撤回、PR #6 / #7 / #8）
 - [x] 体重ページが空状態で真っ白になるバグを修正（`ListWeights` が nil 起点で JSON `null` になっていたのを `[]` 起点に統一、回帰テスト追加）— PR #9 マージ（`3a7f9d2`）
+- [x] PC 表示で md (≥ 768px) 以上はサイドナビ + 2 カラム、モバイルは従来のボトムナビという責務分担に切り替え（`web/src/App.tsx` 1 ファイル変更、各ページは触らず）— PR #11 マージ（`0815252`）
