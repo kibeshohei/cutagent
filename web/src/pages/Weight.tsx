@@ -7,7 +7,7 @@ export default function WeightPage() {
   const [weight, setWeight] = useState("");
 
   useEffect(() => {
-    api.listWeights().then(setLogs);
+    api.listWeights().then((res) => setLogs(res ?? []));
   }, []);
 
   const add = async () => {

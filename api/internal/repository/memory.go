@@ -59,7 +59,8 @@ func newID() string {
 func (s *Store) ListWeights() []schema.WeightLog {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
-	return append([]schema.WeightLog(nil), s.weights...)
+	out := []schema.WeightLog{}
+	return append(out, s.weights...)
 }
 
 func (s *Store) AddWeight(w schema.WeightLog) schema.WeightLog {
@@ -143,13 +144,15 @@ func (s *Store) DeleteWorkout(id string) bool {
 func (s *Store) MealMaster() []schema.MealMaster {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
-	return append([]schema.MealMaster(nil), s.mealMaster...)
+	out := []schema.MealMaster{}
+	return append(out, s.mealMaster...)
 }
 
 func (s *Store) WorkoutMaster() []schema.WorkoutMaster {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
-	return append([]schema.WorkoutMaster(nil), s.workoutMaster...)
+	out := []schema.WorkoutMaster{}
+	return append(out, s.workoutMaster...)
 }
 
 // --- 目標 ---
